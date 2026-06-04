@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Calculadora de Emissão de CO² - Calcule o impacto ambiental de seus deslocamentos">
+    <title>Calculadora de Emissão de CO²</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header">
+        <div class="header__container">
+            <h1 class="header__title">🌍 Calculadora de Emissão de CO²</h1>
+            <p class="header__subtitle">
+                Descubra o impacto ambiental de seus deslocamentos e conheça alternativas mais sustentáveis.
+                Contribua para um planeta mais verde!
+            </p>
+        </div>
+    </header>
+
+    <!-- MAIN -->
+    <main class="main">
+        <div class="container">
+            <!-- FORMULÁRIO -->
+            <section class="form-section">
+                <h2 class="section__title">Calcule sua Emissão</h2>
+                
+                <form id="co2Form" class="form">
+                    <!-- Localização -->
+                    <fieldset class="form__fieldset">
+                        <legend class="form__legend">Localização</legend>
+                        
+                        <div class="form__group">
+                            <label for="origin" class="form__label">
+                                <span class="form__label-icon">📍</span>
+                                Origem:
+                            </label>
+                            <input 
+                                type="text" 
+                                id="origin" 
+                                name="origin" 
+                                class="form__input" 
+                                placeholder="Ex: São Paulo-SP"
+                                list="citiesList"
+                                required
+                                aria-label="Origem do deslocamento"
+                            >
+                        </div>
+
+                        <div class="form__group">
+                            <label for="destination" class="form__label">
+                                <span class="form__label-icon">📍</span>
+                                Destino:
+                            </label>
+                            <input 
+                                type="text" 
+                                id="destination" 
+                                name="destination" 
+                                class="form__input" 
+                                placeholder="Ex: Rio de Janeiro-RJ"
+                                list="citiesList"
+                                required
+                                aria-label="Destino do deslocamento"
+                            >
+                        </div>
+                        
+                        <!-- Datalist para autocomplete -->
+                        <datalist id="citiesList">
+                            <!-- Preenchido dinamicamente -->
+                        </datalist>
+                        
+                        <!-- Sugestões de distância -->
+                        <div id="distanceSuggestions" class="distance-suggestions hidden">
+                            <p class="distance-suggestions__label">📋 Rotas disponíveis:</p>
+                            <ul class="distance-suggestions__list" id="distanceList"></ul>
+                        </div>
+                    </fieldset>
+
+                    <!-- Distância -->
+                    <fieldset class="form__fieldset">
+                        <legend class="form__legend">Distância</legend>
+                        
+                        <div class="form__group form__group--checkbox">
+                            <input 
+                                type="checkbox" 
+                                id="manualDistance" 
+                                name="manualDistance" 
+                                class="form__checkbox"
+                                aria-label="Inserir distância manualmente"
+                            >
+                            <label for="manualDistance" class="form__label--checkbox">
+                                Inserir distância manualmente
+                            </label>
+                        </div>
+
+                        <div class="form__group">
+                            <label for="distance" class="form__label">
+                                <span class="form__label-icon">📏</span>
+                                Distância (Km):
+                            </label>
+                            <div class="form__input-wrapper">
+                                <input 
+                                    type="number" 
+                                    id="distance" 
+                                    name="distance" 
+                                    class="form__input" 
+                                    placeholder="Ex: 430"
+                                    min="0"
+                                    step="0.1"
+                                    disabled
+                                    required
+                                    aria-label="Distância em quilômetros"
+                                >
+                            </div>
+                            <small class="form__helper-text" id="distanceHelper"></small>
+                        </div>
+                    </fieldset>
+
+                    <!-- Meio de Transporte -->
+                    <fieldset class="form__fieldset">
+                        <legend class="form__legend">Meio de Transporte</legend>
+                        
+                        <div class="form__radio-group">
+                            <div class="form__radio-item">
+                                <input 
+                                    type="radio" 
+                                    id="bicicleta" 
+                                    name="transport" 
+                                    value="bicicleta" 
+                                    class="form__radio"
+                                    required
+                                    aria-label="Bicicleta"
+                                >
+                                <label for="bicicleta" class="form__label--radio">
+                                    <span class="form__radio-icon">🚴</span>
+                                    Bicicleta
+                                </label>
+                            </div>
+
+                            <div class="form__radio-item">
+                                <input 
+                                    type="radio" 
+                                    id="onibus" 
+                                    name="transport" 
+                                    value="onibus" 
+                                    class="form__radio"
+                                    required
+                                    aria-label="Ônibus"
+                                >
+                                <label for="onibus" class="form__label--radio">
+                                    <span class="form__radio-icon">🚌</span>
+                                    Ônibus
+                                </label>
+                            </div>
+
+                            <div class="form__radio-item">
+                                <input 
+                                    type="radio" 
+                                    id="carro" 
+                                    name="transport" 
+                                    value="carro" 
+                                    class="form__radio"
+                                    required
+                                    checked
+                                    aria-label="Carro"
+                                >
+                                <label for="carro" class="form__label--radio">
+                                    <span class="form__radio-icon">🚗</span>
+                                    Carro
+                                </label>
+                            </div>
+
+                            <div class="form__radio-item">
+                                <input 
+                                    type="radio" 
+                                    id="moto" 
+                                    name="transport" 
+                                    value="moto" 
+                                    class="form__radio"
+                                    required
+                                    aria-label="Moto"
+                                >
+                                <label for="moto" class="form__label--radio">
+                                    <span class="form__radio-icon">🏍️</span>
+                                    Moto
+                                </label>
+                            </div>
+
+                            <div class="form__radio-item">
+                                <input 
+                                    type="radio" 
+                                    id="caminhao" 
+                                    name="transport" 
+                                    value="caminhao" 
+                                    class="form__radio"
+                                    required
+                                    aria-label="Caminhão"
+                                >
+                                <label for="caminhao" class="form__label--radio">
+                                    <span class="form__radio-icon">🚚</span>
+                                    Caminhão
+                                </label>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <!-- Botões -->
+                    <div class="form__buttons">
+                        <button type="submit" class="form__submit">
+                            ⚡ Calcular Emissão
+                        </button>
+                        <button type="reset" class="form__reset">
+                            🔄 Limpar
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- RESULTADOS (Inicialmente oculto) -->
+            <section id="resultsSection" class="results-section hidden">
+                <h2 class="section__title">📊 Resultados</h2>
+
+                <!-- Emissão Principal -->
+                <article class="result-card result-card--primary">
+                    <h3 class="result-card__title">Emissão de CO²</h3>
+                    <div class="result-card__content">
+                        <p class="result-card__label">Viagem de:</p>
+                        <p class="result-card__route">
+                            <span id="resultOrigin"></span> → <span id="resultDestination"></span>
+                        </p>
+                        <p class="result-card__distance" id="resultDistance"></p>
+                        <div class="result-card__main-value">
+                            <span id="resultEmission" class="result-card__emission">0</span>
+                            <span class="result-card__unit">kg CO²</span>
+                        </div>
+                        <p class="result-card__transport" id="resultTransport"></p>
+                    </div>
+                </article>
+
+                <!-- Comparação entre Meios de Transporte -->
+                <article class="comparison-card">
+                    <h3 class="comparison-card__title">🔄 Comparação entre Meios de Transporte</h3>
+                    <div class="comparison-card__content">
+                        <table class="comparison-table">
+                            <thead class="comparison-table__head">
+                                <tr class="comparison-table__row">
+                                    <th class="comparison-table__header">Transporte</th>
+                                    <th class="comparison-table__header">Emissão (kg)</th>
+                                    <th class="comparison-table__header">Diferença</th>
+                                </tr>
+                            </thead>
+                            <tbody class="comparison-table__body" id="comparisonTableBody">
+                                <!-- Preenchido dinamicamente -->
+                            </tbody>
+                        </table>
+                    </div>
+                </article>
+                
+                <!-- Dica de Melhor Transporte -->
+                <article class="suggestion-card">
+                    <h3 class="suggestion-card__title">💡 Dica: Escolha Sustentável</h3>
+                    <div class="suggestion-card__content" id="suggestionContent">
+                        <!-- Preenchido dinamicamente -->
+                    </div>
+                </article>
+
+                <!-- Créditos de Carbono Sugeridos -->
+                <article class="carbon-credits-card">
+                    <h3 class="carbon-credits-card__title">🌱 Créditos de Carbono Sugeridos</h3>
+                    <div class="carbon-credits-card__content">
+                        <p class="carbon-credits-card__description" id="carbonDescription">
+                            <strong>O que são créditos de carbono?</strong><br>
+                            Créditos de carbono são instrumentos que representam uma tonelada de CO² equivalente removida ou reduzida da atmosfera. 
+                            Você pode compensar suas emissões investindo em projetos de energia limpa, reflorestamento ou preservação ambiental.
+                        </p>
+                        <p class="carbon-credits-card__text" id="carbonCreditsText">
+                            Para compensar a emissão de CO² desta viagem, você poderia:
+                        </p>
+                        <ul class="carbon-credits-list" id="carbonCreditsList">
+                            <!-- Preenchido dinamicamente -->
+                        </ul>
+                        <div class="carbon-credits-card__compensation" id="compensationSection">
+                            <div class="compensation-info">
+                                <p id="compensationText"></p>
+                                <div class="compensation-buttons">
+                                    <button id="compensateButton" class="btn-compensate hidden">
+                                        🌿 Compensar Emissões (R$ <span class="compensation-cost" id="compensationCost">0.00</span>)
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </section>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer__container">
+            <p class="footer__text">
+                Desenvolvido por Cristiano R. Rosa | Projeto GitHub Copilot DIO.
+            </p>
+        </div>
+    </footer>
+
+    <script src="assets/js/routers-data.js"></script>
+    <script src="assets/js/script.js"></script>
+</body>
+</html>
