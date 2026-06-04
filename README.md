@@ -12,7 +12,7 @@ Uma aplicação web interativa para calcular a emissão de CO² de diferentes me
 ![Versão](https://img.shields.io/badge/release-v1.0.0-green)
 ![GitHub last commit](https://img.shields.io/github/last-commit/cristianorr38/Calculadora-Ecotrip-Simulador-Impacto-Ambiental-Viagens)
 ![License](https://img.shields.io/badge/License-MIT-green)
-![GitHub Repo Size](https://img.shields.io/github/repo-size/cristianorr38/Calculadora-EcoTrip-Simulador-Impacto-Ambiental-Viagens)
+![GitHub Repo Size](https://img.shields.io/github/repo-size/cristianorr38/Calculadora-Ecotrip-Simulador-Impacto-Ambiental-Viagens)
 ![GitHub Stars](https://img.shields.io/github/stars/cristianorr38/Calculadora-EcoTrip-Simulador-Impacto-Ambiental-Viagens)
 ![GitHub forks](https://img.shields.io/github/forks/cristianorr38/Calculadora-EcoTrip-Simulador-Impacto-Ambiental-Viagens?style=social)
 
